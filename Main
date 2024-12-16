@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arrosage Automatique</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        h1 {
+            color: #2c3e50;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #219150;
+        }
+        #status {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #34495e;
+        }
+    </style>
+</head>
+<body>
+    <h1>Contrôle de l'arrosage</h1>
+    <button id="arroserButton">Arroser</button>
+    <p id="status">Appuyez sur le bouton pour envoyer le signal.</p>
+
+    <script>
+        document.getElementById('arroserButton').addEventListener('click', function() {
+            fetch('/arroser')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('status').innerText = data;
+                })
+                .catch(error => {
+                    document.getElementById('status').innerText = "Erreur de connexion au serveur.";
+                    console.error('Erreur:', error);
+                });
+        });
+    </script>
+</body>
+</html>
